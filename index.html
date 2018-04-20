@@ -6,26 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>口袋妖怪</title>
     <script src="libs/angular.js"></script>
+    <script src="libs/angular-route.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="app.css"/>
   </head>
   <body ng-controller="AppController">
     <h1>口袋妖怪管理系统</h1>
-    <table>
-      <tr>
-        <th>名称</th>
-        <th>数量</th>
-        <th>重量</th>
-        <th>总计</th>
-        <th>操作</th>
-      </tr>
-      <tr ng-repeat="pokemon in pokemons">
-        <td>{{pokemon.name}}</td>
-        <td><input type="text" ng-model="pokemon.count"></td>
-        <td>{{pokemon.weight}}</td>
-        <td>{{pokemon.weight * pokemon.count}}</td>
-        <td><button ng-click="remove($index)">删除</button></td>
-      </tr>
-    </table>
+    <div ng-view></div>
   </body>
 </html>
