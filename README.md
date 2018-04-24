@@ -13,7 +13,7 @@ http-server
 - [ ] Skills List(in different version)
 - [ ] Hagberrys List
 - [ ] Props List
-- [ ] Masters List
+- [ ] Games List
 
 ## Study Angular1.x
 
