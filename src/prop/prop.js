@@ -5,11 +5,11 @@
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/props',{
-      templateUrl:  'prop/prop-list.html',
+      templateUrl:  'src/prop/prop-list.html',
       controller:   'PropListController'
     })
     .when('/prop/:id', {
-      templateUrl:  'prop/prop-detail.html',
+      templateUrl:  'src/prop/prop-detail.html',
       controller:   'PropDetailController'
     });
   }])

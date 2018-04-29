@@ -4,10 +4,10 @@
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/games', {
-        templateUrl: 'game/game-list.html',
+        templateUrl: 'src/game/game-list.html',
         controller:  'GameListController'
       }).when('/game/:id', {
-        templateUrl:  'game/game-detail.html',
+        templateUrl:  'src/game/game-detail.html',
         controller:   'GameDetailController'
       });
   }])

@@ -4,11 +4,11 @@
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/skills', {
-        templateUrl: 'skill/skill-list.html',
+        templateUrl: 'src/skill/skill-list.html',
         controller: 'SkillListController'
       })
       .when ('/skill/:no', {
-        templateUrl: 'skill/skill-detail.html',
+        templateUrl: 'src/skill/skill-detail.html',
         controller: 'SkillDetailController'
       })
   }])

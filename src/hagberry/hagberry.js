@@ -4,10 +4,10 @@
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/hagberrys', {
-        templateUrl: 'hagberry/hagberry-list.html',
+        templateUrl: 'src/hagberry/hagberry-list.html',
         controller:  'HagberryListController'
       }).when('/hagberry/:id', {
-        templateUrl:  'hagberry/hagberry-detail.html',
+        templateUrl:  'src/hagberry/hagberry-detail.html',
         controller:   'HagberryDetailController'
       });
   }])

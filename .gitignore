@@ -3,3 +3,4 @@ app-filter.js
 app-service.js
 app-directive.js
 yarn-error.log
+dist/

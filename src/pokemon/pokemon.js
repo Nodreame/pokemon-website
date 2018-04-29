@@ -1,19 +1,20 @@
 (function () {
   'use strict';
+
   angular.module('pokemon-app.pokemon', ['ngRoute'])
-  .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider
-      .when('/pokemons', {
-        templateUrl: 'pokemon/pm-list.html',
-        controller: 'PMListController'
-      })
-      .when ('/pokemon/:no', {
-        templateUrl: 'pokemon/pm-detail.html',
-        controller: 'PMDetailController'
-      })
-  }])
-  .controller('PMListController', PMListController)
-  .controller('PMDetailController', PMDetailController);
+    .config(['$routeProvider', function ($routeProvider) {
+      $routeProvider
+        .when('/pokemons', {
+          templateUrl: 'src/pokemon/pm-list.html',
+          controller: 'PMListController'
+        })
+        .when ('/pokemon/:no', {
+          templateUrl: 'src/pokemon/pm-detail.html',
+          controller: 'PMDetailController'
+        })
+    }])
+    .controller('PMListController', PMListController)
+    .controller('PMDetailController', PMDetailController);
 
   
   var pokemons = [
