@@ -3,8 +3,9 @@
 ## Run it
 
 ``` bash
-yarn install
-http-server
+yarn install        # install packages
+npm run script      # build dist/bundle.js
+http-server         # open local server
 ```
 
 ## Todo-List
@@ -14,6 +15,10 @@ http-server
 - [ ] Hagberrys List
 - [ ] Props List
 - [ ] Games List
+
+## Dev Note
+
+- [Nodreame Blog](https://nodreame.github.io/tags/Angular1-x/)
 
 ## Study Angular1.x
 
