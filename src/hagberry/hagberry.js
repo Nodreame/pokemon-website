@@ -1,14 +1,16 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import hagberrylist from './hagberry-list.html';
+import hagberrydetail from './hagberry-detail.html';
 
 export default angular.module('pokemon-app.hagberry', [ngRoute])
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider
     .when('/hagberrys', {
-      templateUrl: 'src/hagberry/hagberry-list.html',
+      template: hagberrylist,
       controller:  'HagberryListController'
     }).when('/hagberry/:id', {
-      templateUrl:  'src/hagberry/hagberry-detail.html',
+      template:  hagberrydetail,
       controller:   'HagberryDetailController'
     });
 }])

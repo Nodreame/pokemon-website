@@ -1,15 +1,17 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import skilllist from './skill-list.html';
+import skilldetail from './skill-detail.html';
 
 export default angular.module('pokemon-app.skill', [ngRoute])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/skills', {
-        templateUrl: 'src/skill/skill-list.html',
+        template: skilllist,
         controller: 'SkillListController'
       })
       .when ('/skill/:no', {
-        templateUrl: 'src/skill/skill-detail.html',
+        template: skilldetail,
         controller: 'SkillDetailController'
       })
   }])

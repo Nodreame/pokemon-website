@@ -1,14 +1,16 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import gamelist from './game-list.html';
+import gamedetail from './game-detail.html';
 
 export default angular.module('pokemon-app.game', [ngRoute])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/games', {
-        templateUrl: 'src/game/game-list.html',
+        template: gamelist,
         controller:  'GameListController'
       }).when('/game/:id', {
-        templateUrl:  'src/game/game-detail.html',
+        template:  gamedetail,
         controller:   'GameDetailController'
       });
   }])

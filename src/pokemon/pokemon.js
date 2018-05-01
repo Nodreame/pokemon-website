@@ -1,15 +1,17 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import pmlist from './pm-list.html';
+import pmdetail from './pm-detail.html';
 
 export default angular.module('pokemon-app.pokemon', [ngRoute])
     .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/pokemons', {
-          templateUrl: 'src/pokemon/pm-list.html',
+          template: pmlist,
           controller: 'PMListController'
         })
         .when ('/pokemon/:no', {
-          templateUrl: 'src/pokemon/pm-detail.html',
+          template: pmdetail,
           controller: 'PMDetailController'
         })
     }])

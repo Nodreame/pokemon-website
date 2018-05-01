@@ -1,15 +1,17 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import proplist from './prop-list.html';
+import propdetail from './prop-detail.html'; 
 
 export default angular.module('pokemon-app.prop', [ngRoute])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/props',{
-      templateUrl:  'src/prop/prop-list.html',
+      template:  proplist,
       controller:   'PropListController'
     })
     .when('/prop/:id', {
-      templateUrl:  'src/prop/prop-detail.html',
+      template:  propdetail,
       controller:   'PropDetailController'
     });
   }])
