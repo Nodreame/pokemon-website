@@ -2,6 +2,7 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import proplist from './prop-list.html';
 import propdetail from './prop-detail.html'; 
+import delDiage from '../common/deleteDialog.tpl.html';
 
 export default angular.module('pokemon-app.prop', [ngRoute])
   .config(['$routeProvider', function ($routeProvider) {
@@ -17,6 +18,7 @@ export default angular.module('pokemon-app.prop', [ngRoute])
   }])
   .controller('PropListController', PropListController)
   .controller('PropDetailController', PropDetailController)
+  .controller('PropDelInstanceController', PropDelInstanceController)
   .name;
 
 var props = [
@@ -66,11 +68,29 @@ var props = [
   }
 ];
 
-PropListController.$inject = ['$scope'];
-function PropListController ($scope) {
+PropListController.$inject = ['$scope', '$uibModal'];
+function PropListController ($scope, $uibModal) {
   $scope.props = props;
   $scope.remove = function (index) {
-    $scope.props.splice(index, 1);
+    console.log('index:', index);
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: delDiage,
+      controller: 'PropDelInstanceController',
+      resolve: {
+        prop: function () {
+          return $scope.props[index];
+        }
+      }
+    });
+    modalInstance.result.then(function (content) {
+      console.log('Delete!', content);
+      $scope.props.splice(index, 1);   
+    }, function (content) {
+      console.log('Cancel!', content);
+    });
   };
 };
 
@@ -83,3 +103,19 @@ function PropDetailController ($scope, $routeParams) {
     }
   });
 };
+
+PropDelInstanceController.$inject = ['$scope', '$uibModalInstance', 'prop'];
+function PropDelInstanceController ($scope, $uibModalInstance, prop) {
+  // console.log('thisIndex:', thisIndex);
+  console.log('prop:', prop);
+  $scope.modalTitle = '删除';
+  $scope.modalBody  = '是否删除' + prop.name.cn + '的数据';
+  $scope.ok = function () {
+    console.log('delete!');
+    $uibModalInstance.close(prop);
+  };
+  $scope.cancel = function () {
+    console.log('cancel!');
+    $uibModalInstance.dismiss('cancel');
+  };
+}

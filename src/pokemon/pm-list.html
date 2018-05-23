@@ -1,17 +1,25 @@
-<h2>口袋妖怪详情</h2>
-<table>
-  <tr>
-    <th>名称</th>
-    <th>数量</th>
-    <th>重量</th>
-    <th>总计</th>
-    <th>操作</th>
-  </tr>
-  <tr ng-repeat="pokemon in pokemons">
-    <td><a href="/#!/pokemon/{{pokemon.no}}">{{pokemon.name}}</a></td>
-    <td><input type="text" ng-model="pokemon.count"></td>
-    <td>{{pokemon.weight}}</td>
-    <td>{{pokemon.weight * pokemon.count}}</td>
-    <td><button ng-click="remove($index)">删除</button></td>
-  </tr>
-</table>
+<h1 class="page-header">图鉴</h1>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>NO.</th>
+        <th>名称</th>
+        <th>数量</th>
+        <th>重量</th>
+        <th>总计</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="pokemon in pokemons">
+        <td>{{pokemon.no}}</td>
+        <td><a href="/#!/pokemon/{{pokemon.no}}">{{pokemon.name}}</a></td>
+        <td><input type="text" ng-model="pokemon.count"></td>
+        <td>{{pokemon.weight}}</td>
+        <td>{{pokemon.weight * pokemon.count}}</td>
+        <td><button class="btn btn-xs btn-primary" ng-click="remove($index)">删除</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

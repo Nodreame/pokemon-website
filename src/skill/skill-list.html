@@ -1,19 +1,25 @@
-<h2>技能详情</h2>
-<table>
-  <tr>
-    <th>名称</th>
-    <th>属性</th>
-    <th>分类</th>
-    <th>威力</th>
-    <th>命中</th>
-    <th>操作</th>
-  </tr>
-  <tr ng-repeat="skill in skills">
-    <td><a href="/#!/skill/{{skill.no}}">{{skill.name.cn}}</a></td>
-    <td>{{skill.property}}</td>
-    <td>{{skill.type}}</td>
-    <td>{{skill.power}}</td>
-    <td>{{skill.hitrate}}</td>
-    <td><button ng-click="remove($index)">删除</button></td>
-  </tr>
-</table>
+<h1 class="page-header">技能</h1>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>属性</th>
+        <th>分类</th>
+        <th>威力</th>
+        <th>命中</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="skill in skills">
+          <td><a href="/#!/skill/{{skill.no}}">{{skill.name.cn}}</a></td>
+          <td>{{skill.property}}</td>
+          <td>{{skill.type}}</td>
+          <td>{{skill.power}}</td>
+          <td>{{skill.hitrate}}</td>
+          <td><button class="btn btn-xs btn-primary" ng-click="remove($index)">删除</button></td>
+        </tr>
+    </tbody>
+  </table>
+</div>

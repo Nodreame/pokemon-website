@@ -2,21 +2,23 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import hagberrylist from './hagberry-list.html';
 import hagberrydetail from './hagberry-detail.html';
+import delDiage from '../common/deleteDialog.tpl.html';
 
 export default angular.module('pokemon-app.hagberry', [ngRoute])
-.config(['$routeProvider', function ($routeProvider) {
-  $routeProvider
-    .when('/hagberrys', {
-      template: hagberrylist,
-      controller:  'HagberryListController'
-    }).when('/hagberry/:id', {
-      template:  hagberrydetail,
-      controller:   'HagberryDetailController'
-    });
-}])
-.controller('HagberryListController', HagberryListController)
-.controller('HagberryDetailController', HagberryDetailController)
-.name;
+  .config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+      .when('/hagberrys', {
+        template: hagberrylist,
+        controller:  'HagberryListController'
+      }).when('/hagberry/:id', {
+        template:  hagberrydetail,
+        controller:   'HagberryDetailController'
+      });
+  }])
+  .controller('HagberryListController', HagberryListController)
+  .controller('HagberryDetailController', HagberryDetailController)
+  .controller('HagberryDelInstanceController', HagberryDelInstanceController)
+  .name;
 
 var hagberrys = [
   {
@@ -61,13 +63,31 @@ var hagberrys = [
   }
 ];
 
-HagberryListController.$inject = ['$scope'];
-function HagberryListController ($scope) {
+HagberryListController.$inject = ['$scope', '$uibModal'];
+function HagberryListController ($scope, $uibModal) {
   $scope.hagberrys = hagberrys;
   $scope.remove = function (index) {
-    $scope.hagberrys.splice(index, 1);
+    console.log('index:', index);
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: delDiage,
+      controller: 'HagberryDelInstanceController',
+      resolve: {
+        hagberry: function () {
+          return $scope.hagberrys[index];
+        }
+      }
+    });
+    modalInstance.result.then(function (content) {
+      console.log('Delete!', content);
+      $scope.hagberrys.splice(index, 1);   
+    }, function (content) {
+      console.log('Cancel!', content);
+    });
   };
-};
+}
 
 HagberryDetailController.$inject = ['$scope', '$routeParams'];
 function HagberryDetailController ($scope, $routeParams) {
@@ -79,4 +99,20 @@ function HagberryDetailController ($scope, $routeParams) {
       console.log(element);
     }
   });
-};
+}
+
+HagberryDelInstanceController.$inject = ['$scope', '$uibModalInstance', 'hagberry'];
+function HagberryDelInstanceController ($scope, $uibModalInstance, hagberry) {
+  // console.log('thisIndex:', thisIndex);
+  console.log('hagberry:', hagberry);
+  $scope.modalTitle = '删除';
+  $scope.modalBody  = '是否删除' + hagberry.name.cn + '的数据';
+  $scope.ok = function () {
+    console.log('delete!');
+    $uibModalInstance.close(hagberry);
+  };
+  $scope.cancel = function () {
+    console.log('cancel!');
+    $uibModalInstance.dismiss('cancel');
+  };
+}

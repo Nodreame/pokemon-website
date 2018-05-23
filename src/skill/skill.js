@@ -2,6 +2,7 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import skilllist from './skill-list.html';
 import skilldetail from './skill-detail.html';
+import delDiage from '../common/deleteDialog.tpl.html';
 
 export default angular.module('pokemon-app.skill', [ngRoute])
   .config(['$routeProvider', function ($routeProvider) {
@@ -17,6 +18,7 @@ export default angular.module('pokemon-app.skill', [ngRoute])
   }])
   .controller('SkillListController', SkillListController)
   .controller('SkillDetailController', SkillDetailController)
+  .controller('SkillDelInstanceController', SkillDelInstanceController)
   .name;
 
 var skills = [
@@ -61,12 +63,30 @@ var skills = [
   }
 ];
 
-SkillListController.$inject = ['$scope'];
-function SkillListController ($scope) {
+SkillListController.$inject = ['$scope', '$uibModal'];
+function SkillListController ($scope, $uibModal) {
   $scope.skills = skills;
   $scope.remove = function (index) {
-    $scope.skills.splice(index, 1);
-  }
+    console.log('index:', index);
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: delDiage,
+      controller: 'SkillDelInstanceController',
+      resolve: {
+        skill: function () {
+          return $scope.skills[index];
+        }
+      }
+    });
+    modalInstance.result.then(function (content) {
+      console.log('Delete!', content);
+      $scope.skills.splice(index, 1);   
+    }, function (content) {
+      console.log('Cancel!', content);
+    });
+  };
 }
 
 SkillDetailController.$inject = ['$scope', '$routeParams'];
@@ -79,4 +99,20 @@ function SkillDetailController ($scope, $routeParams) {
       console.log('the match skill:', $scope.skill);
     }
   });
+}
+
+SkillDelInstanceController.$inject = ['$scope', '$uibModalInstance', 'skill'];
+function SkillDelInstanceController ($scope, $uibModalInstance, skill) {
+  // console.log('thisIndex:', thisIndex);
+  console.log('skill:', skill);
+  $scope.modalTitle = '删除';
+  $scope.modalBody  = '是否删除' + skill.name.cn + '的数据';
+  $scope.ok = function () {
+    console.log('delete!');
+    $uibModalInstance.close(skill);
+  };
+  $scope.cancel = function () {
+    console.log('cancel!');
+    $uibModalInstance.dismiss('cancel');
+  };
 }

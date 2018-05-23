@@ -1,15 +1,21 @@
-<h2>游戏详情</h2>
-<table>
-  <tr>
-    <th>序号</th>
-    <th>名称</th>
-    <th>平台</th>
-    <th>操作</th>
-  </tr>
-  <tr ng-repeat="game in games">
-    <td>{{$index}}</td>
-    <td><a href="/#!/game/{{game.id}}">{{game.name.cn}}</a></td>
-    <td>{{game.platform}}</td>
-    <td><button ng-click="remove($index)">删除</button></td>
-  </tr>
-</table>
+<h1 class="page-header">游戏</h1>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>名称</th>
+        <th>平台</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="game in games">
+        <td>{{$index}}</td>
+        <td><a href="/#!/game/{{game.id}}">{{game.name.cn}}</a></td>
+        <td>{{game.platform}}</td>
+        <td><button class="btn btn-xs btn-primary" ng-click="remove($index)">删除</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

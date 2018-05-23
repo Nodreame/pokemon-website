@@ -2,6 +2,7 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import pmlist from './pm-list.html';
 import pmdetail from './pm-detail.html';
+import delDiage from '../common/deleteDialog.tpl.html';
 
 export default angular.module('pokemon-app.pokemon', [ngRoute])
     .config(['$routeProvider', function ($routeProvider) {
@@ -17,6 +18,7 @@ export default angular.module('pokemon-app.pokemon', [ngRoute])
     }])
     .controller('PMListController', PMListController)
     .controller('PMDetailController', PMDetailController)
+    .controller('PMDelInstanceController', PMDelInstanceController)
     .name;
 
   
@@ -49,12 +51,32 @@ var pokemons = [
     ] }
 ];
 
-PMListController.$inject = ['$scope'];
-function PMListController ($scope) {
+PMListController.$inject = ['$scope', '$uibModal'];
+function PMListController ($scope, $uibModal) {
   $scope.pokemons = pokemons;
+  console.log($scope.pokemons);
+
   $scope.remove = function (index) {
-    $scope.pokemons.splice(index, 1);
-  }
+    console.log('index:', index);
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: delDiage,
+      controller: 'PMDelInstanceController',
+      resolve: {
+        pokemon: function () {
+          return $scope.pokemons[index];
+        }
+      }
+    });
+    modalInstance.result.then(function (content) {
+      console.log('Delete!', content);
+      $scope.pokemons.splice(index, 1);   
+    }, function (content) {
+      console.log('Cancel!', content);
+    });
+  };
 }
 
 PMDetailController.$inject = ['$scope', '$routeParams'];
@@ -66,4 +88,20 @@ function PMDetailController ($scope, $routeParams) {
       console.log('the match pokemon:', $scope.pokemon);
     }
   });
+}
+
+PMDelInstanceController.$inject = ['$scope', '$uibModalInstance', 'pokemon'];
+function PMDelInstanceController ($scope, $uibModalInstance, pokemon) {
+  // console.log('thisIndex:', thisIndex);
+  console.log('pokemon:', pokemon);
+  $scope.modalTitle = '删除';
+  $scope.modalBody  = '是否删除' + pokemon.name + '的数据';
+  $scope.ok = function () {
+    console.log('delete!');
+    $uibModalInstance.close(pokemon);
+  };
+  $scope.cancel = function () {
+    console.log('cancel!');
+    $uibModalInstance.dismiss('cancel');
+  };
 }

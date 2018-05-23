@@ -2,6 +2,7 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import gamelist from './game-list.html';
 import gamedetail from './game-detail.html';
+import delDiage from '../common/deleteDialog.tpl.html';
 
 export default angular.module('pokemon-app.game', [ngRoute])
   .config(['$routeProvider', function ($routeProvider) {
@@ -16,6 +17,7 @@ export default angular.module('pokemon-app.game', [ngRoute])
   }])
   .controller('GameListController', GameListController)
   .controller('GameDetailController', GameDetailController)
+  .controller('GameDelInstanceController', GameDelInstanceController)
   .name;
 
 var games = [
@@ -77,13 +79,31 @@ var games = [
   }
 ];
 
-GameListController.$inject = ['$scope'];
-function GameListController ($scope) {
+GameListController.$inject = ['$scope', '$uibModal'];
+function GameListController ($scope, $uibModal) {
   $scope.games = games;
   $scope.remove = function (index) {
-    $scope.games.splice(index, 1);
+    console.log('index:', index);
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      template: delDiage,
+      controller: 'GameDelInstanceController',
+      resolve: {
+        game: function () {
+          return $scope.games[index];
+        }
+      }
+    });
+    modalInstance.result.then(function (content) {
+      console.log('Delete!', content);
+      $scope.games.splice(index, 1);   
+    }, function (content) {
+      console.log('Cancel!', content);
+    });
   };
-};
+}
 
 GameDetailController.$inject = ['$scope', '$routeParams'];
 function GameDetailController ($scope, $routeParams) {
@@ -94,4 +114,20 @@ function GameDetailController ($scope, $routeParams) {
       console.log(element);
     }
   });
-};
+}
+
+GameDelInstanceController.$inject = ['$scope', '$uibModalInstance', 'game'];
+function GameDelInstanceController ($scope, $uibModalInstance, game) {
+  // console.log('thisIndex:', thisIndex);
+  console.log('game:', game);
+  $scope.modalTitle = '删除';
+  $scope.modalBody  = '是否删除' + game.name.cn + '的数据';
+  $scope.ok = function () {
+    console.log('delete!');
+    $uibModalInstance.close(game);
+  };
+  $scope.cancel = function () {
+    console.log('cancel!');
+    $uibModalInstance.dismiss('cancel');
+  };
+}

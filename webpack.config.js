@@ -19,7 +19,27 @@ module.exports = {
     rules: [{
       test: /\.html$/,
       loader: 'raw-loader'
-    }]
+    }, {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    }, 
+    {
+      test: /\.(woff|woff2|eot|ttf|svg)$/,
+      use: ['file-loader']
+    },
+    {
+      test: /\.(png|svg|jpg|gif)$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
+            fallback: 'file-loader'
+          }
+        }
+      ]
+    }
+  ]
   },
   output: {
     filename: 'bundle.js',

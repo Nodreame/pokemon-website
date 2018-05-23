@@ -1,15 +1,21 @@
-<h2>树果详情</h2>
-<table>
-  <tr>
-    <th>名称</th>
-    <th>版本</th>
-    <th>道具说明</th>
-    <th>操作</th>
-  </tr>
-  <tr ng-repeat="hagberry in hagberrys">
-    <td><a href="/#!/hagberry/{{hagberry.id}}">{{hagberry.name.cn}}</a></td>
-    <td>{{hagberry.version}}</td>
-    <td>{{hagberry.desc}}</td>
-    <td><button ng-click="remove($index)">删除</button></td>
-  </tr>
-</table>
+<h1 class="page-header">树果</h1>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>版本</th>
+        <th>道具说明</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="hagberry in hagberrys">
+        <td><a href="/#!/hagberry/{{hagberry.id}}">{{hagberry.name.cn}}</a></td>
+        <td>{{hagberry.version}}</td>
+        <td>{{hagberry.desc}}</td>
+        <td><button class="btn btn-xs btn-primary" ng-click="remove($index)">删除</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

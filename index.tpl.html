@@ -8,15 +8,43 @@
     <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
   </head>
   <body ng-controller="AppController">
-    <h1>口袋妖怪管理系统</h1>
-    <div>
-      <h2>快速导航：</h2>
-      <a href="/#!/pokemons">口袋妖怪</a>
-      <a href="/#!/skills">技能</a>
-      <a href="/#!/hagberrys">树果</a>
-      <a href="/#!/props">道具</a>
-      <a href="/#!/games">游戏</a>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand" id="icon">
+            <!-- <img width="20" height="20" src="http://s1.52poke.wiki/wiki/5/5e/Bag_%E7%B2%BE%E7%81%B5%E7%90%83_Sprite.png" alt=""> -->
+          </a>
+          <a href="#" class="navbar-brand">口袋妖怪管理系统v0.0.1</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Nodreame</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li ng-class="{'/pokemons': 'active'}[nowUrl]"><a href="/#!/pokemons">图鉴</a></li>
+            <li ng-class="{'/skills': 'active'}[nowUrl]"><a href="/#!/skills">技能</a></li>
+            <li ng-class="{'/hagberrys': 'active'}[nowUrl]"><a href="/#!/hagberrys">树果</a></li>
+            <li ng-class="{'/props': 'active'}[nowUrl]"><a href="/#!/props">道具</a></li>
+            <li ng-class="{'/games': 'active'}[nowUrl]"><a href="/#!/games">游戏</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div ng-view></div>
+        </div>
+      </div>
     </div>
-    <div ng-view></div>
+
+    <!-- <h4>Single toggle</h4>
+    <pre>{{singleModel}}</pre>
+    <button type="button" class="btn btn-primary" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        Single Toggle
+    </button> -->
   </body>
 </html>

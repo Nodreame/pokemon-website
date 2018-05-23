@@ -1,7 +1,11 @@
-<h2>口袋妖怪详情：</h2>
-<img ng-src="{{pokemon.img}}">
+<div>
+  <a href="/#!/pokemons">
+    <span class="glyphicon glyphicon-arrow-left"></span>返回图鉴列表
+  </a>
+</div>
+<h2 class="sub-header"><b>{{pokemon.name}}</b></h2>
+<img ng-src="{{pokemon.img}}" width="200" height="200">
 <p><b>编号: </b>No.{{pokemon.no}}</p>
-<p><b>名称: </b>{{pokemon.name}}</p>
 <p><b>体重: </b>{{pokemon.weight}}</p>
 <p><b>属性: </b>{{pokemon.property}}</p>
 <p><b>种类: </b>{{pokemon.type}}</p>
@@ -21,5 +25,3 @@
   </div>
   <div style="clear: both;"></div>
 </div>
-
-<a href="/#!/pokemons">返回列表</a>
